@@ -25,7 +25,7 @@ We compared the performance of different variant calling models by constructing 
 
 2. Python scripts for constructing the dbFP and identifying false positives    
     ```
-    strain_dbFP.dfFP( “pure samples variants”)
+    strain_dbFP.dbFP( “pure samples variants”)
     ```
     (eg) strain_dbFP.dfFP (“pureindica_purejaponica_variants vcf”)
 
