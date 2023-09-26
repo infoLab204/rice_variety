@@ -22,7 +22,7 @@ We compared the performance of different variant calling models by constructing 
     ```
     strain_dbFP.confusion_matrix( “actual sample variants”, “predicted sample variants”)
     ```
-    (eg) strain_dbFP.confusion_matrix(“japonica_variants.vcf”, “mixed_indica25_variants.vcf”)
+   (eg) strain_dbFP.confusion_matrix(“japonica_variants.vcf”, “mixed_indica25_variants.vcf”)
 
 2. Python scripts for constructing the dbFP and identifying false positives    
     ```
