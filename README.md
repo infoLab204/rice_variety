@@ -16,7 +16,6 @@ We compared the performance of different variant calling models by constructing 
 5.	VCF files
 
 
-
 ## Python scripts for analyzing variant calling results
 1. Python scripts for constructing the confusion matrix and evaluating performance metrics    
     ```
