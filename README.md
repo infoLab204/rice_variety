@@ -10,9 +10,9 @@ We compared the performance of different variant calling models by constructing 
     - Indica reference genome (ASM465v1) : https://www.ebi.ac.uk/ena/browser/view/GCA_000004655.2
 2.	The dbSNP of Japonica and Indica
     - Japonica dbSNP : https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-57/variation/vcf/oryza_sativa/oryza_sativa.vcf.gz
-    -	indica dbSNP: https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-57/variation/vcf/oryza_indica/oryza_indica.vcf.gz
-3. 	The purebred samples of Japonica and Indica
-4.	The non-purebred samples of Japonica and Indica
+    - Indica dbSNP: https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-57/variation/vcf/oryza_indica/oryza_indica.vcf.gz
+3. 	The purebred samples of Japonica and Indica, or the non-purebred samples of Japonica and Indica
+    - https://www.ebi.ac.uk/biosamples/samples/SAMEG4750728
 5.	VCF files
 
 
