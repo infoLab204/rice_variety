@@ -24,18 +24,18 @@ We compared the performance of different variant calling models by constructing 
 ## Python scripts for analyzing variant calling results
 1. Python scripts for constructing the confusion matrix and evaluating performance metrics    
     ```
-    strain_dbFP.confusion_matrix( “actual sample variants”, “predicted sample variants”)
+   rice_strain.confusion_matrix( “actual sample variants”, “predicted sample variants”)
     ```
-   (eg) strain_dbFP.confusion_matrix(“japonica_variants.vcf”, “mixed_indica25_variants.vcf”)
+   (eg) rice_strain.confusion_matrix(“japonica_variants.vcf”, “mixed_indica25_variants.vcf”)
 
 2. Python scripts for constructing the dbFP and identifying false positives    
     ```
-    strain_dbFP.dbFP( “pure samples variants”)
+    rice_strain.dbFP( “pure samples variants”)
     ```
     (eg) strain_dbFP.dfFP (“pureindica_purejaponica_variants vcf”)
 
 3. Python scripts for estimating error rates of dbSNP     
     ```
-    strain_dbFP.error_rate( “sample_name”, “reference”, “name of database”)
+    rice_strain.error_rate( “sample_name”, “reference”, “name of database”)
     ```
     (eg) strain_dbFP.error_rate("RWG-006","IRGSP-1.0_genome.fasta","oryza_sativa.vcf")
