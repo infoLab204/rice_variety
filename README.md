@@ -32,10 +32,10 @@ We compared the performance of different variant calling models by constructing 
     ```
     rice_strain.dbFP( “pure samples variants”)
     ```
-    (eg) strain_dbFP.dfFP (“pureindica_purejaponica_variants vcf”)
+    (eg) rice_strain.dfFP (“pureindica_purejaponica_variants vcf”)
 
 3. Python scripts for estimating error rates of dbSNP     
     ```
     rice_strain.error_rate( “sample_name”, “reference”, “name of database”)
     ```
-    (eg) strain_dbFP.error_rate("RWG-006","IRGSP-1.0_genome.fasta","oryza_sativa.vcf")
+    (eg) rice_strain.error_rate("RWG-006","IRGSP-1.0_genome.fasta","oryza_sativa.vcf")
