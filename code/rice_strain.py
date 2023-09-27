@@ -65,8 +65,8 @@ def confusion_matrix(actual, predicted) :
     print(f"F1-score : {F1:.2f}")
 
 def error_rate(sample, reference_file, database, dbtype) :
-    # program
-    SAMTOOLS="/home/king/tools/samtools-1.17"
+    # program setting
+    SAMTOOLS="tools/samtools-1.17"
 
     os.system("mkdir erate")
     os.system(f"{SAMTOOLS}/samtools mpileup -Bf {reference_file} {sample}_aligned.bam > erate/{sample}_error\n");
