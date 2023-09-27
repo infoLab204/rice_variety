@@ -1,6 +1,6 @@
-# dbFP: A method of identifying false positives in the strain-specific variant calling of rice    
+# rice_strain : A method of identifying false positives in the strain-specific variant calling of rice    
 ### Sunhee Kim and Chang-Yong Lee    
-The dbFP represents Python scripts that analyze the variants called using different variant calling models to propose a method for finding false positive variants using purebred and non-purebred samples of two strains in rice.    
+The rice_strain represents Python scripts that analyze the variants called using different variant calling models to propose a method for finding false positive variants using purebred and non-purebred samples of two strains in rice.    
 
 We compared the performance of different variant calling models by constructing confusion matrices using the sets of variants called by different models. The constructed confusion matrices were evaluated in three different metrics: precision, recall, and F1 score. Based on the results of the performance comparison, we proposed a method to construct the dbFP, which is a collection of false positive variants. We showed that the dbFP identified the false positives from the called variants. The validity of the proposed dbFP was tested against the dbSNP and non-negligible false positives were found. We have provided the Python scripts with datasets for the readers to reproduce the results discussed in the manuscript.    
 
