@@ -1,4 +1,4 @@
-# rice_strain : A method of identifying false positives in the strain-specific variant calling of rice    
+# Rice_strain : A method of identifying false positives in the strain-specific variant calling of rice    
 ### Sunhee Kim and Chang-Yong Lee    
 The rice_strain represents Python scripts that analyze the variants called using different variant calling models to propose a method for finding false positive variants using purebred and non-purebred samples of two strains in rice.    
 
