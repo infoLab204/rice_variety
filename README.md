@@ -13,7 +13,9 @@ We compared the performance of different variant calling models by constructing 
     - Indica dbSNP: https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-57/variation/vcf/oryza_indica/oryza_indica.vcf.gz
 3. 	The purebred samples of Japonica and Indica, or the non-purebred samples of Japonica and Indica
     - https://www.ebi.ac.uk/biosamples/samples/SAMEG4750728
-5.	VCF files
+4.	VCF files
+    - The result of variants calling with the Japonica reference :
+    - The result of variants calling with the Indica reference : 
 
 
 ## Python scripts for analyzing variant calling results
