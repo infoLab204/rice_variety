@@ -30,7 +30,7 @@ We compared the performance of different variant calling models by constructing 
 <br><br><br>
 2. Python scripts for constructing the dbFP and identifying false positives    
     ```
-    rice_strain.dbFP( “pure samples variants”)
+    rice_strain.dbFP( “pure samples variants”,"dbFP_output_filename","dbFP_type")
     ```
     (eg) rice_strain.dbFP (“rice_Nip_japdbSNP_purebred_indica_purebred_japonica.vcf.gz”,"dbFP_japonica", "japonica")
 <br><br><br>
