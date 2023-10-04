@@ -26,13 +26,13 @@ We compared the performance of different variant calling models by constructing 
     ```
    rice_strain.confusion_matrix( “actual sample variants”, “predicted sample variants”)
     ```
-   (eg) rice_strain.confusion_matrix(“japonica_variants.vcf”, “mixed_indica25_variants.vcf”)
+   (eg) rice_strain.confusion_matrix(“rice_Nip_japdbSNP_purebred_japonica.vcf”, “rice_Nip_japdbSNP_indica50_mixed.vcf”)
 <br><br><br>
 2. Python scripts for constructing the dbFP and identifying false positives    
     ```
     rice_strain.dbFP( “pure samples variants”)
     ```
-    (eg) rice_strain.dbFP (“rice_Nip_japdbSNP_purebred_indica_purebred_japonica.vcf.gz”)
+    (eg) rice_strain.dbFP (“rice_Nip_japdbSNP_purebred_indica_purebred_japonica.vcf.gz”,"dbFP_japonica", "japonica")
 <br><br><br>
 3. Python scripts for estimating error rates of dbSNP     
     ```
