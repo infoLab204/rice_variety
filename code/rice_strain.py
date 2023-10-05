@@ -1,6 +1,6 @@
 import os
 
-def confusion_matrix(actual, predicted) :
+def confusion_matrix(actual, predicted, strain, region) :
     if ".gz" in actual :
         os.system(f'zcat {actual} | grep -v "^#"| cut -f1,2|uniq > actual_uniq_pos')
     else :
@@ -10,7 +10,7 @@ def confusion_matrix(actual, predicted) :
     else :
         os.system(f'grep -v "^#" {predicted} | cut -f1,2|uniq > predicted_uniq_pos')
 
-    os.system("sdiff japonica_coding_region  actual_uniq_pos > analysis_data")
+    os.system(f"sdiff {strain}_{region}  actual_uniq_pos > analysis_data")
     os.system("awk '{if(NF==4) print $0;}' analysis_data > Real_Yes_junk")
     cmd_line='{printf("%s\\t%s\\n",$1,$2);}'
     os.system(f"awk '{cmd_line} ' Real_Yes_junk > Real_Yes")
@@ -25,7 +25,7 @@ def confusion_matrix(actual, predicted) :
     os.system("rm Real_onlycoding_junk")
     os.system("rm analysis_data")
     
-    os.system("sdiff japonica_coding_region  predicted_uniq_pos > analysis_data")
+    os.system(f"sdiff {strain}_{region}  predicted_uniq_pos > analysis_data")
     os.system("awk '{if(NF==4) print $0;}' analysis_data > predicted_Yes_junk")
     cmd_line='{printf("%s\\t%s\\n",$1,$2);}'
     os.system(f"awk '{cmd_line}'  predicted_Yes_junk > predicted_Yes")
@@ -290,7 +290,7 @@ def dbFP(purebred_variants, dbFP_database, dbFP_type) :
 
 
 
-def dbFP_confusion_matrix(actual, predicted,dbFP) :
+def dbFP_confusion_matrix(actual, predicted,strain,region,dbFP) :
     if ".gz" in actual :
         os.system(f'zcat {actual} | grep -v "^#"| cut -f1,2|uniq > actual_uniq_pos')
     else :
@@ -300,7 +300,7 @@ def dbFP_confusion_matrix(actual, predicted,dbFP) :
     else :
         os.system(f'grep -v "^#" {predicted} | cut -f1,2|uniq > predicted_uniq_pos')
 
-    os.system("sdiff japonica_coding_region  actual_uniq_pos > analysis_data")
+    os.system(f"sdiff {strain}_{region}  actual_uniq_pos > analysis_data")
     os.system("awk '{if(NF==4) print $0;}' analysis_data > Real_Yes_junk")
     cmd_line='{printf("%s\\t%s\\n",$1,$2);}'
     os.system(f"awk '{cmd_line} ' Real_Yes_junk > Real_Yes")
@@ -315,7 +315,7 @@ def dbFP_confusion_matrix(actual, predicted,dbFP) :
     os.system("rm Real_onlycoding_junk")
     os.system("rm analysis_data")
     
-    os.system("sdiff japonica_coding_region  predicted_uniq_pos > analysis_data")
+    os.system(f"sdiff {strain}_{region}  predicted_uniq_pos > analysis_data")
     os.system("awk '{if(NF==4) print $0;}' analysis_data > predicted_Yes_junk")
     cmd_line='{printf("%s\\t%s\\n",$1,$2);}'
     os.system(f"awk '{cmd_line}'  predicted_Yes_junk > predicted_Yes")
