@@ -70,6 +70,9 @@ def confusion_matrix(actual, predicted) :
     print(f"Recall : {Recall:.2f}")
     print(f"F1-score : {F1:.2f}")
 
+
+
+
 def error_rate(sample, reference_file, database, dbtype) :
     # program setting
     SAMTOOLS="/home/king/tools/samtools-1.17"
@@ -283,3 +286,236 @@ def dbFP(purebred_variants, dbFP_database, dbFP_type) :
     
     cmd_line=f"rm -rf {out_file_name}"
     os.system(cmd_line)
+
+
+
+
+def dbFP_confusion_matrix(actual, predicted,dbFP) :
+    if ".gz" in actual :
+        os.system(f'zcat {actual} | grep -v "^#"| cut -f1,2|uniq > actual_uniq_pos')
+    else :
+        os.system(f'grep -v "^#" {actural} | cut -f1,2|uniq > actual_uniq_pos')
+    if ".gz" in predicted :
+        os.system(f'zcat {predicted} | grep -v "^#" | cut -f1,2|uniq > predicted_uniq_pos')
+    else :
+        os.system(f'grep -v "^#" {predicted} | cut -f1,2|uniq > predicted_uniq_pos')
+
+    os.system("sdiff japonica_coding_region  actual_uniq_pos > analysis_data")
+    os.system("awk '{if(NF==4) print $0;}' analysis_data > Real_Yes_junk")
+    cmd_line='{printf("%s\\t%s\\n",$1,$2);}'
+    os.system(f"awk '{cmd_line} ' Real_Yes_junk > Real_Yes")
+    os.system("rm Real_Yes_junk")
+    os.system('grep -e "|" -e "<" analysis_data > Real_onlycoding_junk')
+
+    cmd1='{if(NF==3) printf("%s\\t%s\\n",$1,$2);'
+    cmd2='else if(NF==5) printf("%s\\t%s\\n",$1,$2);}'
+    cmd3='{if(NF==3) printf("%s\\t%s\\n",$2,$3);'
+    cmd4='else if(NF==5) printf("%s\\t%s\\n",$4,$5);}'
+    os.system(f"awk '{cmd1} {cmd2} ' Real_onlycoding_junk > Real_onlycoding")
+    os.system("rm Real_onlycoding_junk")
+    os.system("rm analysis_data")
+    
+    os.system("sdiff japonica_coding_region  predicted_uniq_pos > analysis_data")
+    os.system("awk '{if(NF==4) print $0;}' analysis_data > predicted_Yes_junk")
+    cmd_line='{printf("%s\\t%s\\n",$1,$2);}'
+    os.system(f"awk '{cmd_line}'  predicted_Yes_junk > predicted_Yes")
+    os.system("rm predicted_Yes_junk")
+    os.system('grep -e "|" -e "<" analysis_data > predicted_onlycoding_junk')
+    os.system(f"awk '{cmd1} {cmd2} ' predicted_onlycoding_junk > predicted_onlycoding")
+    os.system("rm predicted_onlycoding_junk")
+    os.system("rm analysis_data")
+
+    os.system("sdiff Real_Yes  predicted_Yes  > analysis_data")
+    os.system("awk '{if(NF==4) print $0;}' analysis_data > TP_junk")
+    cmd_line='{printf("%s\\t%s\\n",$1,$2);}'
+    os.system(f"awk '{cmd_line}'  TP_junk > TP")
+    os.system("rm TP_junk ")
+    os.system('grep -e "|" -e "<" analysis_data > FN_junk')
+    os.system(f"awk '{cmd1} {cmd2}' FN_junk > FN")
+    os.system("rm FN_junk")
+    os.system('grep -e "|" -e ">" analysis_data > FP_junk')
+    os.system(f"awk '{cmd3} {cmd4} ' FP_junk > FP")
+    os.system("rm FP_junk")
+    os.system("rm analysis_data")
+
+    os.system("sdiff Real_onlycoding  predicted_onlycoding  > analysis_data")
+    os.system("awk '{if(NF==4) print $0;}' analysis_data > TN_junk")
+
+    cmd_line='{printf("%s\\t%s\\n",$1,$2);}'
+    os.system(f"awk '{cmd_line} ' TN_junk > TN")
+    os.system("rm TN_junk")
+
+
+    os.system(f"sdiff {dbFP} FP> analysis_data")
+    os.system("awk '{if(NF==4) print $0;}' analysis_data > FP_Yes_junk")
+    cmd_line='{printf("%s\\t%s\\n",$1,$2);}'
+    os.system(f"awk '{cmd_line}'  FP_Yes_junk > FP_Yes")
+    os.system("rm FP_Yes_junk ")
+
+    FP_Yes=int(os.popen("wc -l FP_Yes").readline().split()[0])
+
+    ## confusion matrix
+    TP=int(os.popen("wc -l TP").readline().split()[0])
+    FN=int(os.popen("wc -l FN").readline().split()[0])
+    FP1=int(os.popen("wc -l FP").readline().split()[0])
+    FP=FP1-FP_Yes
+    TN=int(os.popen("wc -l TN").readline().split()[0])
+    print(f"TP:{TP} FN:{FN} FP:{FP} TN:{TN}")
+
+    
+    Precision=TP/(TP+FP)
+    Recall=TP/(TP+FN)
+    F1= 2*(Recall*Precision)/(Recall+Precision)
+    print(f"Precision : {Precision:.2f}")
+    print(f"Recall : {Recall:.2f}")
+    print(f"F1-score : {F1:.2f}")
+
+
+
+def coding_noncoding(GFF,reference, strain) :
+    cmd_line="awk '{if($3==\"gene\" || $3==\"CDS\") print $0;}' "
+    cmd_line=cmd_line+f"{GFF}  > rice_gff3_junk"
+    os.system(cmd_line)
+
+    infile=open("rice_gff3_junk","r")
+    outfile=open("step1.txt","w")
+    gene_dict={}
+    cds_dict={}
+
+    while True :
+        row=infile.readline()
+        if row==""  :
+            break
+        row_list=row.strip().split('\t')
+        
+        if row_list[2]=="gene":
+            gene_name=row_list[8].strip().split(';')[0].split('=')[1].split(':')[1]
+
+            if gene_name in gene_dict :
+                if row_list[0] in ["1","2","3","4","5","6","7","8","9"] :
+                    gene_dict[gene_name]=gene_dict[gene_name]+"chr0"+row_list[0]+"\t"+row_list[2]+"\t"+row_list[3]+"\t"+row_list[4]+"\t"+"CDS"
+                else :
+                    gene_dict[gene_name]=gene_dict[gene_name]+"chr"+row_list[0]+"\t"+row_list[2]+"\t"+row_list[3]+"\t"+row_list[4]+"\t"+"CDS"
+            else :
+                if row_list[0] in ["1","2","3","4","5","6","7","8","9"] :
+                    gene_dict[gene_name]="chr0"+row_list[0]+"\t"+row_list[2]+"\t"+row_list[3]+"\t"+row_list[4]+"\t"+"CDS"
+                else :
+                    gene_dict[gene_name]="chr"+row_list[0]+"\t"+row_list[2]+"\t"+row_list[3]+"\t"+row_list[4]+"\t"+"CDS"
+        elif row_list[2]=="CDS" :
+            cds_name=row_list[8].split(";")[0].split("=")[1].split(":")[1]
+            if cds_name in cds_dict :
+                cds_dict[cds_name]=cds_dict[cds_name]+row_list[3]+"\t"+row_list[4]+"\t"
+            else :
+                cds_dict[cds_name]=row_list[3]+"\t"+row_list[4]+"\t"
+
+    final_dict={}
+    for key in gene_dict :
+        if gene_dict[key].split('\t')[0] in ["chr01","chr02","chr03","chr04","chr05","chr06","chr07","chr08","chr09","chr10","chr11","chr12"] :
+             final_dict[key]=gene_dict[key]
+    for key, value in cds_dict.items() :
+        key_check=key.split("-")
+        key_con=key_check[0].replace("t","g")
+        if key_con in final_dict :
+            final_dict[key_con]=final_dict[key_con]+"\t"+key+"\t"+value
+
+    for key,value in final_dict.items() :
+        temp=key+"\t"+value+"\n"
+        outfile.write(temp)
+
+    os.system("rm -rf rice_gff3_junk")
+    outfile.close()
+    infile.close()
+
+    os.system("awk '{if(NF >7) print $0;}' step1.txt  > step2.txt")
+
+
+    import sys
+
+    infile=open("step2.txt","r")
+    outfile=open("step3.txt","w")
+
+    #for _ in range(100) :
+    while True :
+        row=infile.readline()
+        if row==""  :
+            break
+        n = row.count("-")
+        if n<=1 :
+            pr=row.strip()+"\n"
+            outfile.write(pr) 
+        elif n==2 :
+           row_list=row.strip().split("Os")
+           pr1="Os"+row_list[1]+"Os"+row_list[2]+"\n"
+           pr2="Os"+row_list[1]+"Os"+row_list[3]+"\n"
+           outfile.write(pr1)  
+           outfile.write(pr2)  
+    
+        elif n==3 :
+           row_list=row.strip().split("Os")
+           pr1="Os"+row_list[1]+"Os"+row_list[2]+"\n"
+           pr2="Os"+row_list[1]+"Os"+row_list[3]+"\n"
+           pr3="Os"+row_list[1]+"Os"+row_list[4]+"\n"
+           outfile.write(pr1)  
+           outfile.write(pr2)  
+           outfile.write(pr3)  
+    
+
+        elif n==4 :
+           row_list=row.strip().split("Os")
+           pr1="Os"+row_list[1]+"Os"+row_list[2]+"\n"
+           pr2="Os"+row_list[1]+"Os"+row_list[3]+"\n"
+           pr3="Os"+row_list[1]+"Os"+row_list[4]+"\n"
+           pr4="Os"+row_list[1]+"Os"+row_list[5]+"\n"
+           outfile.write(pr1)  
+           outfile.write(pr2)  
+           outfile.write(pr3)  
+           outfile.write(pr4)  
+    
+    
+    os.system("rm -rf step2.txt")
+
+    infile=open("step3.txt","r")  
+    outfile=open("coding_region","w")
+    
+    while True :
+        gene=infile.readline().strip()
+
+        if gene=="":
+            break
+        gene_list=gene.split('\t')
+        for i in range(7, len(gene_list)-1,2) :
+            start=int(gene_list[i])
+            end=int(gene_list[i+1])
+            for k in range(start, end+1) :
+                outfile.write(f"{gene_list[1]}\t{k}\n")
+
+    outfile.close()
+    infile.close()
+    os.system("rm -rf step3.txt")
+    os.system(f"cat coding_region | sort  -k1,1 -k2,2n | uniq  > {strain}_coding_region")
+    os.system("rm -rf coding_region")
+
+    from Bio import SeqIO
+    
+    seq_infile=SeqIO.parse(reference,"fasta")  ## rice_sequence_info
+    file_name=f"{strain}_sequence_info"
+    outfile=open(file_name,"w")
+
+    seq_dict={}
+    for s in seq_infile :
+       seq_dict[s.id]=s.seq
+
+    for i in seq_dict :
+        for k in range(1,len(seq_dict[i])+1) :
+            pr=i+"\t"+str(k)+"\n"
+            outfile.write(pr)
+    outfile.close()
+
+    cmd3='{if(NF==3) printf("%s\\t%s\\n",$2,$3);'
+    cmd4='else if(NF==5) printf("%s\\t%s\\n",$4,$5);}'
+    os.system(f"sdiff {strain}_sequence_info  {strain}_coding_region  > analysis_data")
+    os.system('grep -e "|" -e ">" analysis_data > noncoding_region')
+    os.system(f"awk '{cmd3} {cmd4} ' noncoding_region > {strain}_noncoding_region")
+    os.system("rm noncoding_region")
+    os.system("rm analysis_data")
+
