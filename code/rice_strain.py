@@ -511,11 +511,11 @@ def coding_noncoding(GFF,reference, strain) :
             outfile.write(pr)
     outfile.close()
 
-    cmd3='{if(NF==3) printf("%s\\t%s\\n",$2,$3);'
-    cmd4='else if(NF==5) printf("%s\\t%s\\n",$4,$5);}'
+    cmd1='{if(NF==3) printf("%s\\t%s\\n",$1,$2);'
+    cmd2='else if(NF==5) printf("%s\\t%s\\n",$1,$2);}'
     os.system(f"sdiff {strain}_sequence_info  {strain}_coding_region  > analysis_data")
-    os.system('grep -e "|" -e ">" analysis_data > noncoding_region')
-    os.system(f"awk '{cmd3} {cmd4} ' noncoding_region > {strain}_noncoding_region")
+    os.system('grep -e "|" -e "<" analysis_data > noncoding_region')
+    os.system(f"awk '{cmd1} {cmd2} ' noncoding_region > {strain}_noncoding_region")
     os.system("rm noncoding_region")
     os.system("rm analysis_data")
 
