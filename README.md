@@ -44,7 +44,7 @@ We compared the performance of different variant calling models by constructing 
     (eg) rice_strain.dbFP (“rice_Nip_jadbSNP_purebred_indica_purebred_japonica.vcf.gz”,"dbFP_japonica", "japonica")
 <br><br><br>
 
-3. Python scripts for reconstructing the confusion matrix and evaluating performance metrics
+3. Python scripts for constructing the confusion matrix using dbFP and evaluating performance metrics
     ```
     rice_strain.dbFP_confusion_matrix(“actual sample variants”, “predicted sample variants”, “strain_type”, “region_type”, “dbFP”)
     ```
