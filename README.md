@@ -17,8 +17,8 @@ We compared the performance of different variant calling models by constructing 
     - Japonica gene annotation : https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-57/gff3/oryza_sativa/Oryza_sativa.IRGSP-1.0.57.chr.gff3.gz
     - Indica gene annotation  : https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-57/gff3/oryza_indica/Oryza_indica.ASM465v1.57.chr.gff3.gz
 6.	VCF files
-    - The result of variants calling with the Japonica reference :
-    - The result of variants calling with the Indica reference : 
+    - The result of variants calling with the Japonica reference : https://doi.org/10.5281/zenodo.8381893
+    - The result of variants calling with the Indica reference : https://doi.org/10.5281/zenodo.8383314
 
 
 ## Python scripts for analyzing variant calling results
