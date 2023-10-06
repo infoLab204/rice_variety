@@ -24,18 +24,56 @@ We compared the performance of different variant calling models by constructing 
 ## Python scripts for analyzing variant calling results
 1. Python scripts for constructing the confusion matrix and evaluating performance metrics    
     ```
-   rice_strain.confusion_matrix( “actual sample variants”, “predicted sample variants”)
+   rice_strain.confusion_matrix( “actual sample variants”, “predicted sample variants”, “strain_type”, “region_type”)
     ```
-   (eg) rice_strain.confusion_matrix(“rice_Nip_japdbSNP_purebred_japonica.vcf”, “rice_Nip_japdbSNP_indica50_mixed.vcf”)
+    - actual sample variants : actual variant calling file
+    - predicted sample variants: predicted variant calling file
+    - strain_type : indica or japonica
+    - region_type : coding region or noncoding region
+
+   (eg) rice_strain.confusion_matrix(“rice_Nip_jadbSNP_purebred_japonica.vcf”, “rice_Nip_jadbSNP_indica50_mixed.vcf”,”japonica”, ”coding_region”)
 <br><br><br>
 2. Python scripts for constructing the dbFP and identifying false positives    
     ```
-    rice_strain.dbFP( “pure samples variants”,"dbFP_output_filename","dbFP_type")
+   rice_strain.dbFP( “pure samples variants”,"dbFP_output","strain_type")
     ```
-    (eg) rice_strain.dbFP (“rice_Nip_japdbSNP_purebred_indica_purebred_japonica.vcf.gz”,"dbFP_japonica", "japonica")
+    - pure samples variants: purebred indica and purebred japonica variant calling file
+    - dbFP_output: indica_dbFP or japonica_dbFP
+    - strain_type : indica or japonica
+
+    (eg) rice_strain.dbFP (“rice_Nip_jadbSNP_purebred_indica_purebred_japonica.vcf.gz”,"dbFP_japonica", "japonica")
 <br><br><br>
-3. Python scripts for estimating error rates of dbSNP     
+
+3. Python scripts for reconstructing the confusion matrix and evaluating performance metrics
     ```
-    rice_strain.error_rate( “sample_name”, “reference”, “name of database”)
+    rice_strain.dbFP_confusion_matrix(“actual sample variants”, “predicted sample variants”, “strain_type”, “region_type”, “dbFP”)
     ```
-    (eg) rice_strain.error_rate("RWG-006","IRGSP-1.0_genome.fasta","oryza_sativa.vcf")
+    - actual sample variants : actual variant calling file
+    - predicted sample variants: predicted variant calling file
+    - strain_type : indica or japonica
+    - region_type : coding region or noncoding region
+    - dbFP : japonica_dbFP or indica_dbFP
+  
+    (eg) rice_strain.dbFP_confusion_matrix(“rice_Nip_jadbSNP_purebred_japonica.vcf”, “rice_Nip_jadbSNP_indica50_mixed.vcf”, ”japonica”, ”coding_region”,“japonica_dbFP”)
+<br><br><br>
+4.  coding region and noncoging region
+    ```
+    rice_strain.coding_noncoding(“GFF_file”, “reference”, ”strain_type”)
+    ```
+    - GFF_file : japonica or indica annotation file
+    - reference : japonica or indica reference 
+    - strain_type : indica or japonica
+  
+    (eg) rice_strain.coding_noncoding (“Oryza_sativa.IRGSP-1.0.56.gff3”, "IRGSP-1.0_genome.fasta",“japonica”)
+<br><br><br>
+  
+5. Python scripts for estimating error rates of dbSNP     
+    ```
+   rice_strain.error_rate( “sample_name”, “reference”, “name of database”,”strain_type”)
+    ```
+    - sample_name : sample
+    - reference : japonica or indica reference 
+    - name of database : indica or japonica of dbSNP
+    - strain_type : indica or japonica
+
+    (eg) rice_strain.error_rate("RWG-006","IRGSP-1.0_genome.fasta","oryza_sativa.vcf","japonica")
