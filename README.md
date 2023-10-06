@@ -60,7 +60,8 @@ We compared the performance of different variant calling models by constructing 
   
     (eg) rice_strain.dbFP_confusion_matrix(“rice_Nip_jadbSNP_purebred_japonica.vcf”, “rice_Nip_jadbSNP_indica50_mixed.vcf”, ”japonica”, ”coding_region”,“japonica_dbFP”)
 <br><br><br>
-6.  coding region and noncoging region
+
+6.  Python scripts for constructing the coding region and noncoding region
     ```
     rice_strain.coding_noncoding(“GFF_file”, “reference”, ”strain_type”)
     ```
