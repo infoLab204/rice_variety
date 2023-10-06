@@ -75,7 +75,7 @@ def confusion_matrix(actual, predicted, strain, region) :
 
 def error_rate(sample, reference_file, database, strain) :
     # program setting
-    SAMTOOLS="samtools-1.17"
+    SAMTOOLS="/home/king/tools/samtools-1.17"
 
     #os.system("mkdir erate")
     os.system(f"{SAMTOOLS}/samtools mpileup -Bf {reference_file} {sample}_aligned.bam > {sample}_error\n");
@@ -149,7 +149,7 @@ def error_rate(sample, reference_file, database, strain) :
     sdiff_exe="sdiff "+strain+"_uniq_pos  "+sample+"_error_analysis_uniq_pos "+ "> "+sample+"_"+strain+"_analysis"
     os.system(sdiff_exe)
 
-    #rm_cmd=f"rm -rf {dbtype}_uniq_pos"
+    #rm_cmd=f"rm -rf {strain}_uniq_pos"
     #os.system(rm_cmd)
     rm_cmd=f"rm -rf {sample}_error_analysis_uniq_pos"
     os.system(rm_cmd)
@@ -373,6 +373,7 @@ def dbFP_confusion_matrix(actual, predicted,strain,region,dbFP) :
 
 
 def coding_noncoding(GFF,reference, strain) :
+    
     cmd_line="awk '{if($3==\"gene\" || $3==\"CDS\") print $0;}' "
     cmd_line=cmd_line+f"{GFF}  > rice_gff3_junk"
     os.system(cmd_line)
@@ -494,7 +495,7 @@ def coding_noncoding(GFF,reference, strain) :
     os.system("rm -rf step3.txt")
     os.system(f"cat coding_region | sort  -k1,1 -k2,2n | uniq  > {strain}_coding_region")
     os.system("rm -rf coding_region")
-
+    
     from Bio import SeqIO
     
     seq_infile=SeqIO.parse(reference,"fasta")  ## rice_sequence_info
@@ -510,7 +511,7 @@ def coding_noncoding(GFF,reference, strain) :
             pr=i+"\t"+str(k)+"\n"
             outfile.write(pr)
     outfile.close()
-
+    
     cmd1='{if(NF==3) printf("%s\\t%s\\n",$1,$2);'
     cmd2='else if(NF==5) printf("%s\\t%s\\n",$1,$2);}'
     os.system(f"sdiff {strain}_sequence_info  {strain}_coding_region  > analysis_data")
