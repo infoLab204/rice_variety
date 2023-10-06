@@ -22,7 +22,11 @@ We compared the performance of different variant calling models by constructing 
 
 
 ## Python scripts for analyzing variant calling results
-1. Python scripts for constructing the confusion matrix and evaluating performance metrics    
+1. Download “rice_strain.py” module from the github repository and import the module
+    ```
+    import rice_strain
+    ```
+3. Python scripts for constructing the confusion matrix and evaluating performance metrics    
     ```
    rice_strain.confusion_matrix( “actual sample variants”, “predicted sample variants”, “strain_type”, “region_type”)
     ```
@@ -33,7 +37,7 @@ We compared the performance of different variant calling models by constructing 
 
    (eg) rice_strain.confusion_matrix(“rice_Nip_jadbSNP_purebred_japonica.vcf”, “rice_Nip_jadbSNP_indica50_mixed.vcf”,”japonica”, ”coding_region”)
 <br><br><br>
-2. Python scripts for constructing the dbFP and identifying false positives    
+4. Python scripts for constructing the dbFP and identifying false positives    
     ```
    rice_strain.dbFP( “pure samples variants”,"dbFP_output","strain_type")
     ```
@@ -44,7 +48,7 @@ We compared the performance of different variant calling models by constructing 
     (eg) rice_strain.dbFP (“rice_Nip_jadbSNP_purebred_indica_purebred_japonica.vcf.gz”,"dbFP_japonica", "japonica")
 <br><br><br>
 
-3. Python scripts for constructing the confusion matrix using dbFP and evaluating performance metrics
+5. Python scripts for constructing the confusion matrix using dbFP and evaluating performance metrics
     ```
     rice_strain.dbFP_confusion_matrix(“actual sample variants”, “predicted sample variants”, “strain_type”, “region_type”, “dbFP”)
     ```
@@ -56,7 +60,7 @@ We compared the performance of different variant calling models by constructing 
   
     (eg) rice_strain.dbFP_confusion_matrix(“rice_Nip_jadbSNP_purebred_japonica.vcf”, “rice_Nip_jadbSNP_indica50_mixed.vcf”, ”japonica”, ”coding_region”,“japonica_dbFP”)
 <br><br><br>
-4.  coding region and noncoging region
+6.  coding region and noncoging region
     ```
     rice_strain.coding_noncoding(“GFF_file”, “reference”, ”strain_type”)
     ```
@@ -67,7 +71,7 @@ We compared the performance of different variant calling models by constructing 
     (eg) rice_strain.coding_noncoding (“Oryza_sativa.IRGSP-1.0.56.gff3”, "IRGSP-1.0_genome.fasta",“japonica”)
 <br><br><br>
   
-5. Python scripts for estimating error rates of dbSNP     
+7. Python scripts for estimating error rates of dbSNP     
     ```
    rice_strain.error_rate( “sample_name”, “reference”, “name of database”,”strain_type”)
     ```
