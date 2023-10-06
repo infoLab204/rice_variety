@@ -73,7 +73,7 @@ def confusion_matrix(actual, predicted, strain, region) :
 
 
 
-def error_rate(sample, reference_file, database, dbtype) :
+def error_rate(sample, reference_file, database, strain) :
     # program setting
     SAMTOOLS="samtools-1.17"
 
@@ -137,7 +137,7 @@ def error_rate(sample, reference_file, database, dbtype) :
     ## database information 
     db_name=database
 
-    snp_extract='grep -v "^#" '+db_name + " | cut -f1,2 | uniq > "+dbtype+"_uniq_pos"    
+    snp_extract='grep -v "^#" '+db_name + " | cut -f1,2 | uniq > "+strain+"_uniq_pos"    
     os.system(snp_extract)
     
 
@@ -146,7 +146,7 @@ def error_rate(sample, reference_file, database, dbtype) :
     os.system(sample_extract)
 
 
-    sdiff_exe="sdiff "+dbtype+"_uniq_pos  "+sample+"_error_analysis_uniq_pos "+ "> "+sample+"_"+dbtype+"_analysis"
+    sdiff_exe="sdiff "+strain+"_uniq_pos  "+sample+"_error_analysis_uniq_pos "+ "> "+sample+"_"+strain+"_analysis"
     os.system(sdiff_exe)
 
     #rm_cmd=f"rm -rf {dbtype}_uniq_pos"
@@ -154,25 +154,25 @@ def error_rate(sample, reference_file, database, dbtype) :
     rm_cmd=f"rm -rf {sample}_error_analysis_uniq_pos"
     os.system(rm_cmd)
 
-    sdiff_extract="awk '{if(NF==4) print $0;}' "+sample+"_"+dbtype+"_analysis"+" > "+sample+"_"+dbtype+"_common"
+    sdiff_extract="awk '{if(NF==4) print $0;}' "+sample+"_"+strain+"_analysis"+" > "+sample+"_"+strain+"_common"
     os.system(sdiff_extract)
 
-    rm_cmd=f"rm -rf {sample}_{dbtype}_analysis"  
+    rm_cmd=f"rm -rf {sample}_{strain}_analysis"  
     os.system(rm_cmd)
 
-    eff_variant="cut -f1,2 "+sample+"_"+dbtype+"_common" + " > "+sample+"_"+dbtype+"_variant_pos"
+    eff_variant="cut -f1,2 "+sample+"_"+strain+"_common" + " > "+sample+"_"+strain+"_variant_pos"
     os.system(eff_variant)
     
-    rm_cmd=f"rm -rf {sample}_{dbtype}_common"  
+    rm_cmd=f"rm -rf {sample}_{strain}_common"  
     os.system(rm_cmd)
     
     
     sample_name=sample+"_error_analysis"
-    eff_name=sample+"_"+dbtype+"_variant_pos"
+    eff_name=sample+"_"+strain+"_variant_pos"
     sample_infile=open(sample_name,"r")
     eff_infile=open(eff_name,"r")
    
-    error_rate_file=sample+"_"+dbtype+"_error_rate" 
+    error_rate_file=sample+"_"+strain+"_error_rate" 
     error_rate=open(error_rate_file,"w")
 
     eff_num=0
@@ -205,7 +205,7 @@ def error_rate(sample, reference_file, database, dbtype) :
 
     rm_cmd=f"rm -rf {sample_name}"
     os.system(rm_cmd)
-    rm_cmd=sample+"_"+dbtype+"_variant_pos"
+    rm_cmd=sample+"_"+strain+"_variant_pos"
     os.system(f"rm -rf {rm_cmd}")
 
     sample_infile.close()
