@@ -20,7 +20,7 @@ We compared the performance of different variant calling models by constructing 
     - The result of variants calling with the Japonica reference : https://doi.org/10.5281/zenodo.8381893
     - The result of variants calling with the Indica reference : https://doi.org/10.5281/zenodo.8383314
 
-
+<br><br><br>
 ## Python scripts for analyzing variant calling results
 1. Download “rice_strain.py” module from the github repository and import the module
     ```
