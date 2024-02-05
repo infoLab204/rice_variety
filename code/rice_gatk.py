@@ -55,5 +55,5 @@ print(f"java -jar {GATK} ApplyBQSR  -R {ref} -I {root_dir}/{alignment}/{samp_nam
 print(f"java -jar {GATK} HaplotypeCaller -R {ref} -I {root_dir}/{recalibration}/{samp_name}_recalibrated.bam -O {root_dir}/{variants}/temp/{samp_name}_recal.vcf.gz -ERC GVCF")
 
 ## GATK GenotypeGVCF
-print(f"java -jar {GATK}  GenotypeGVCFs -R {ref}  -V {root_dir}/{variants}/temp/rice_Nip_tmp.vcf.gz -O {root_dir}/{variants}/rice_Nip_variant_calling.vcf.gz\n");
+print(f"java -jar {GATK}  GenotypeGVCFs -R {ref}  -V {root_dir}/{variants}/temp/{samp_name}_recal.vcf.gz -O {root_dir}/{variants}/{samp_name}_variant_calling.vcf.gz\n");
 
