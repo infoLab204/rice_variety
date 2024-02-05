@@ -48,7 +48,7 @@ print(f"rm -rf  {root_dir}{alignment}/temp/{samp_name}.fixmated.sored.bam ")
 print(f"{SAMTOOLS}samtools index {root_dir}{alignment}/{samp_name}_aligned.bam")
 
 ## GATK BaseRecalibrator
-print(f"java -jar {GATK} BaseRecalibrator -R {ref} -I {root_dir}{alignment}/{samp_name}_aligned.bam  --known-sites {root_dir}/db/oryza_sativa_dbSNP_20230103.vcf.gz  -O {root_dir}{recalibration}/temp/{samp_name}_recalibrated.table")
+print(f"java -jar {GATK} BaseRecalibrator -R {ref} -I {root_dir}{alignment}/{samp_name}_aligned.bam  --known-sites {root_dir}/oryza_sativa_dbSNP_20230103.vcf.gz  -O {root_dir}{recalibration}/temp/{samp_name}_recalibrated.table")
 print(f"java -jar {GATK} ApplyBQSR  -R {ref} -I {root_dir}{alignment}/{samp_name}_aligned.bam --bqsr-recal-file {root_dir}{recalibration}/temp/{samp_name}_recalibrated.table -O {root_dir}{recalibration}/{samp_name}_recalibrated.bam")
    
 ## GATK HaplotypeCaller
