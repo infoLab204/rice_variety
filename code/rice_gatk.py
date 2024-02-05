@@ -7,7 +7,7 @@ import sys
 ##program setting
 BWA="bwa-mem2-2.2.1/"
 SAMTOOLS="samtools-1.17/"
-PICARD="/picard.jar"
+PICARD="picard.jar"
 GATK="gatk-package-4.3.0.0-local.jar"
 
 
@@ -15,7 +15,7 @@ GATK="gatk-package-4.3.0.0-local.jar"
 ref="IRGSP-1.0_genome.fasta "
 
 ## working dictionary setting
-root_dir="/rice/"
+root_dir="rice/"
 fastq="FASTQ"
 alignment="alignment"
 db="db"
