@@ -9,13 +9,13 @@ We compared the performance of different variant calling models by constructing 
     - Nipponbare reference genome (IRGSP 1.0) : https://www.ebi.ac.uk/ena/browser/view/GCA_001433935.1
     - Indica reference genome (ASM465v1) : https://www.ebi.ac.uk/ena/browser/view/GCA_000004655.2
 2.	The dbSNP of Japonica and Indica
-    - Japonica dbSNP : https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-57/variation/vcf/oryza_sativa/oryza_sativa.vcf.gz
-    - Indica dbSNP: https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-57/variation/vcf/oryza_indica/oryza_indica.vcf.gz
+    - Japonica dbSNP : https://ftp.ebi.ac.uk/pub/databases/eva/rs_releases/release_6/by_species/oryza_sativa/IRGSP1.0/    
+    - Indica dbSNP: https://ftp.ebi.ac.uk/pub/databases/eva/rs_releases/release_6/by_species/oryza_sativa/GCA_000005425.2    
 3. 	The typical samples of Japonica and Indica, or the introgressed samples of Japonica and Indica
     - https://www.ebi.ac.uk/biosamples/samples/SAMEG4750728
 4. Gene annotation
-    - Japonica gene annotation : https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-57/gff3/oryza_sativa/Oryza_sativa.IRGSP-1.0.57.chr.gff3.gz
-    - Indica gene annotation  : https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-57/gff3/oryza_indica/Oryza_indica.ASM465v1.57.chr.gff3.gz
+    - Japonica gene annotation : https://rapdb.dna.affrc.go.jp/download/archive/irgsp1/IRGSP-1.0_representative_2024-07-12.tar.gz    
+    - Indica gene annotation  : https://ftp.ensemblgenomes.ebi.ac.uk/pub/plants/release-59/gff3/oryza_indica/Oryza_indica.ASM465v1.59.chr.gff3.gz    
 6.	VCF files
     - The result of variants calling with the Japonica reference : https://doi.org/10.5281/zenodo.8381893
     - The result of variants calling with the Indica reference : https://doi.org/10.5281/zenodo.8383314
