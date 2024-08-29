@@ -69,7 +69,7 @@ We compared the performance of different variant calling models by constructing 
     - reference : japonica or indica reference 
     - variety_type : indica or japonica
   
-    (eg) rice_variety.coding_noncoding (“Oryza_sativa.IRGSP-1.0.59.gff3”, "IRGSP-1.0_genome.fasta",“japonica”)
+    (eg) rice_variety.coding_noncoding (“Oryza_sativa.IRGSP-1.0.gff3”, "IRGSP-1.0_genome.fasta",“japonica”)
 <br><br><br>
   
 7. Python scripts for estimating error rates of dbSNP     
@@ -81,4 +81,4 @@ We compared the performance of different variant calling models by constructing 
     - name of database : indica or japonica of dbSNP
     - variety_type : indica or japonica
 
-    (eg) rice_variety.error_rate("RWG-006","IRGSP-1.0_genome.fasta","oryza_sativa.vcf","japonica")
+    (eg) rice_variety.error_rate("RWG-006","IRGSP-1.0_genome.fasta","japonica_dbSNP.vcf","japonica")
