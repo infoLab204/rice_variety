@@ -1,4 +1,4 @@
-# Rice_variety : A method of identifying false positives in the variety-specific variant calling of rice    
+# Rice_variety : A quantitative analysis of the variety-specific effect in rice variant calling   
 ### Sunhee Kim and Chang-Yong Lee    
 The rice_variety represents Python scripts that analyze the variants called using different variant calling models to propose a method for finding false positive variants using typical and introgressed samples of two varieties in rice.    
 
